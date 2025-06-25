@@ -1,25 +1,15 @@
-// components/Topbar.jsx
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 
 function Topbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [query, setQuery] = useState('');
 
   const handleSearch = () => {
-    const input = document.getElementById('search-bar');
-    const q = input?.value.trim();
+    const q = query.trim();
     if (q) navigate(`/search?q=${encodeURIComponent(q)}`);
   };
-
-  useEffect(() => {
-    const input = document.getElementById('search-bar');
-    const keyListener = (e) => {
-      if (e.key === 'Enter') handleSearch();
-    };
-    input?.addEventListener('keydown', keyListener);
-    return () => input?.removeEventListener('keydown', keyListener);
-  }, []);
 
   return (
     <div
@@ -39,10 +29,12 @@ function Topbar() {
           <input
             type="text"
             className="form-control"
-            id="search-bar"
             placeholder="Search characters..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           />
-          <button className="btn btn-outline-primary" id="search-btn" onClick={handleSearch}>
+          <button className="btn btn-outline-primary" onClick={handleSearch}>
             <i className="bi bi-search"></i>
           </button>
         </div>

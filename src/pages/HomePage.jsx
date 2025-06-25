@@ -3,17 +3,20 @@ import Sidebar from '../components/sidebar';
 import Topbar from '../components/topbar';
 import { useNavigate } from 'react-router';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 function HomePage() {
   const [user, setUser] = useState(null);
   const [popular, setPopular] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('/api/current-user').then(async res => {
-      if (res.ok) setUser(await res.json());
-    });
+    fetch(`${API_BASE}/api/current-user`, { credentials: 'include' })
+      .then(async res => {
+        if (res.ok) setUser(await res.json());
+      });
 
-    fetch('/api/characters/popular')
+    fetch(`${API_BASE}/api/characters/popular`, { credentials: 'include' })
       .then(res => res.json())
       .then(setPopular);
   }, []);
@@ -22,15 +25,16 @@ function HomePage() {
     e.preventDefault();
     const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
-    const res = await fetch("/api/login", {
+    const res = await fetch(`${API_BASE}/api/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
+      credentials: 'include'
     });
     const data = await res.json();
     alert(data.message || data.detail);
     if (res.ok) {
-      const user = await fetch("/api/current-user").then(r => r.json());
+      const user = await fetch(`${API_BASE}/api/current-user`, { credentials: 'include' }).then(r => r.json());
       setUser(user);
     }
   };
@@ -87,7 +91,6 @@ function HomePage() {
             </div>
           </section>
 
-          {/* Placeholder sections for recent and recommended */}
           <section className="mb-4">
             <h4>Recently Uploaded</h4>
             <div className="d-flex flex-row overflow-auto gap-3"></div>

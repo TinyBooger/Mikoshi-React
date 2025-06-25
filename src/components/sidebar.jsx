@@ -1,22 +1,23 @@
-// src/components/Sidebar.jsx
 import React, { useEffect, useState } from 'react';
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 export default function Sidebar() {
   const [user, setUser] = useState(null);
   const [recent, setRecent] = useState([]);
 
   useEffect(() => {
-    fetch("/api/current-user")
-      .then(res => res.ok ? res.json() : null)
+    fetch(`${API_BASE}/api/current-user`, { credentials: 'include' })
+      .then(res => (res.ok ? res.json() : null))
       .then(data => setUser(data));
 
-    fetch("/api/recent-characters")
-      .then(res => res.ok ? res.json() : [])
+    fetch(`${API_BASE}/api/recent-characters`, { credentials: 'include' })
+      .then(res => (res.ok ? res.json() : []))
       .then(setRecent);
   }, []);
 
   const handleLogout = async () => {
-    await fetch("/api/logout", { method: "POST" });
+    await fetch(`${API_BASE}/api/logout`, { method: "POST", credentials: 'include' });
     location.reload();
   };
 
