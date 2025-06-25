@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
-      // Add child routes later as pages are created
+      { index: true, element: <HomePage /> }
     ]
   }
 ]);
