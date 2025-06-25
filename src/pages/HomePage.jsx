@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/sidebar';
 import Topbar from '../components/topbar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function HomePage() {
   const [user, setUser] = useState(null);
