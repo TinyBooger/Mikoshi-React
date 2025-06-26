@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
-function WelcomePage({ onLoginSuccess }) {
+function WelcomePage({ setUser }) {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
