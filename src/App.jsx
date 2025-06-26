@@ -1,6 +1,6 @@
 // App.jsx
 import React, { useEffect, useState } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import Layout from './components/layout';
 import HomePage from './pages/HomePage';
 import WelcomePage from './pages/WelcomePage'; // You need to create this
