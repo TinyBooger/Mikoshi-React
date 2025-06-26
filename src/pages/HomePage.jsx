@@ -27,7 +27,7 @@ function HomePage() {
               style={{ width: 150, margin: 5, cursor: 'pointer' }}
               onClick={() => navigate(`/chat?character=${encodeURIComponent(c.id)}`)}
             >
-              <img src={c.picture || './assets/images/default-picture.png'} className="card-img-top" alt={c.name} style={{ borderRadius: 8 }} />
+              <img src={c.picture || '../assets/images/default-picture.png'} className="card-img-top" alt={c.name} style={{ borderRadius: 8 }} />
               <div className="card-body p-2">
                 <h6 className="card-title mb-1">{c.name}</h6>
                 <p className="text-muted" style={{ fontSize: 12 }}>❤️ {c.views}</p>

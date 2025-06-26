@@ -56,7 +56,7 @@ export default function Sidebar() {
               onClick={() => window.location.href = `/chat?character=${c.id}`}
             >
               <img
-                src={c.picture || "./assets/images/default-picture.png"}
+                src={c.picture || "../assets/images/default-picture.png"}
                 alt={c.name}
                 className="rounded-circle"
                 style={{ width: 30, height: 30 }}
@@ -75,7 +75,7 @@ export default function Sidebar() {
               data-bs-toggle="dropdown"
             >
               <img
-                src={user.profile_pic || "./assets/images/default-avatar.png"}
+                src={user.profile_pic || "../assets/images/default-avatar.png"}
                 className="rounded-circle"
                 width="32"
                 height="32"
