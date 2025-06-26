@@ -11,17 +11,21 @@ function WelcomePage({ onLoginSuccess }) {
     e.preventDefault();
     const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
+
     const res = await fetch(`${API_BASE}/api/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
       credentials: 'include'
     });
+
     const data = await res.json();
     alert(data.message || data.detail);
+
     if (res.ok) {
-      const user = await fetch(`${API_BASE}/api/current-user`, { credentials: 'include' }).then(r => r.json());
-      onLoginSuccess(user);
+      const userRes = await fetch(`${API_BASE}/api/current-user`, { credentials: 'include' });
+      const userData = await userRes.json();
+      setUser(userData); // ✅ this triggers App to re-render with logged-in router
     }
   };
 
