@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import defaultPicture from '../assets/images/default-picture.png';
+import defaultAvatar from '../assets/images/default-avatar.png';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
@@ -56,7 +58,7 @@ export default function Sidebar() {
               onClick={() => window.location.href = `/chat?character=${c.id}`}
             >
               <img
-                src={c.picture || "../assets/images/default-picture.png"}
+                src={c.picture || defaultPicture}
                 alt={c.name}
                 className="rounded-circle"
                 style={{ width: 30, height: 30 }}
@@ -75,7 +77,7 @@ export default function Sidebar() {
               data-bs-toggle="dropdown"
             >
               <img
-                src={user.profile_pic || "../assets/images/default-avatar.png"}
+                src={user.profile_pic || defaultAvatar}
                 className="rounded-circle"
                 width="32"
                 height="32"
