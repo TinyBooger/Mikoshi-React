@@ -1,6 +1,8 @@
+// src/pages/HomePage.jsx
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/sidebar';
 import Topbar from '../components/topbar';
+import WelcomePage from './WelcomePage';
 import { useNavigate } from 'react-router';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -21,56 +23,15 @@ function HomePage() {
       .then(setPopular);
   }, []);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value.trim();
-    const password = e.target.password.value.trim();
-    const res = await fetch(`${API_BASE}/api/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-      credentials: 'include'
-    });
-    const data = await res.json();
-    alert(data.message || data.detail);
-    if (res.ok) {
-      const user = await fetch(`${API_BASE}/api/current-user`, { credentials: 'include' }).then(r => r.json());
-      setUser(user);
-    }
-  };
-
-  if (!user) {
-    return (
-      <div className="container d-flex flex-column justify-content-center align-items-center text-center vh-100">
-        <h1 className="mb-4">Welcome to Character Library</h1>
-        <p className="mb-4">Discover and chat with your favorite characters.</p>
-        <form onSubmit={handleLogin} className="w-100" style={{ maxWidth: 400 }}>
-          <div className="mb-3">
-            <input name="email" type="email" className="form-control" placeholder="Email" required />
-          </div>
-          <div className="mb-3">
-            <input name="password" type="password" className="form-control" placeholder="Password" required />
-          </div>
-          <div className="d-grid gap-2">
-            <button type="submit" className="btn btn-dark">Login</button>
-            <button type="button" className="btn btn-outline-secondary" onClick={() => navigate('/account-setup')}>Sign up</button>
-          </div>
-        </form>
-      </div>
-    );
-  }
+  if (!user) return <WelcomePage onLoginSuccess={setUser} />;
 
   return (
     <div className="d-flex" style={{ height: '100vh' }}>
-      <div style={{ width: 250, flexShrink: 0 }}>
-        <Sidebar />
-      </div>
-
+      <div style={{ width: 250, flexShrink: 0 }}><Sidebar /></div>
       <div className="d-flex flex-column flex-grow-1 overflow-hidden">
         <div className="flex-shrink-0"><Topbar /></div>
         <main className="flex-grow-1 p-4 overflow-auto">
           <h2>Character Library</h2>
-
           <section className="mb-4">
             <h4>Popular Characters</h4>
             <div className="d-flex flex-row overflow-auto gap-3">
