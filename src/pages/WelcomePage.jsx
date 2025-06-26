@@ -23,8 +23,10 @@ function WelcomePage({ setUser }) {
     alert(data.message || data.detail);
 
     if (res.ok) {
+      console.log("Fetching user...");
       const userRes = await fetch(`${API_BASE}/api/current-user`, { credentials: 'include' });
       const userData = await userRes.json();
+      console.log("User data:", userData);
       setUser(userData); // ✅ this triggers App to re-render with logged-in router
     }
   };
